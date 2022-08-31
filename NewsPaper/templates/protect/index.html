@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+
+{% block content %}
+<h2>Страница авторизованного пользователя {{request.user.username}}</h2>
+<div> Здесь может содержаться персональная информация для каждого пользователя </div>
+
+<button> <a href="sign/logout/">Выйти</a> </button>
+
+{% if is_not_authors %}
+<button> <a href="sign/upgrade/"> Стать автором</a> </button>
+{% endif %}
+
+{% if is_not_sport_subscribers %}
+<button> <a href="sign/upgrade2/"> Стать подписчиком категории: "sport"</a> </button>
+{% endif %}
+
+{% if is_not_business_subscribers %}
+<button> <a href="sign/upgrade3/"> Стать подписчиком категории: "business"</a> </button>
+{% endif %}
+
+{% if is_not_education_subscribers %}
+<button> <a href="sign/upgrade4/"> Стать подписчиком категории: "education"</a> </button>
+{% endif %}
+
+{% if is_not_entertainment_subscribers %}
+<button> <a href="sign/upgrade5/"> Стать подписчиком категории: "entertainment"</a> </button>
+{% endif %}
+
+{% endblock %}
