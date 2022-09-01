@@ -14,9 +14,16 @@ class Author(models.Model):
         for comment in Comment.rating.validators:
             self.author_rating += comment
 
+    def __str__(self):
+        return f'{self.user.username}'
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    subscribers = models.ManyToManyField(User, through='SubscribersCategory')
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
@@ -51,6 +58,9 @@ class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.post.title_post}: {self.category.name}'
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -65,3 +75,11 @@ class Comment(models.Model):
 
     def dislike(self):
         self.like(-1)
+
+
+class SubscribersCategory(models.Model):
+    subscriber = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.category}: {self.subscriber}'

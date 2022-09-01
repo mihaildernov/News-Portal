@@ -18,35 +18,3 @@ def upgrade_me_authors(request):
     if not request.user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
     return redirect('/')
-
-@login_required
-def upgrade_me_sport(request):
-    user = request.user
-    sport_subscribers_group = Group.objects.get(name='sport_subscribers')
-    if not request.user.groups.filter(name='sport_subscribers').exists():
-        sport_subscribers_group.user_set.add(user)
-    return redirect('/')
-
-@login_required
-def upgrade_me_business(request):
-    user = request.user
-    business_subscribers_group = Group.objects.get(name='business_subscribers')
-    if not request.user.groups.filter(name='business_subscribers').exists():
-        business_subscribers_group.user_set.add(user)
-    return redirect('/')
-
-@login_required
-def upgrade_me_education(request):
-    user = request.user
-    education_subscribers_group = Group.objects.get(name='education_subscribers')
-    if not request.user.groups.filter(name='education_subscribers').exists():
-        education_subscribers_group.user_set.add(user)
-    return redirect('/')
-
-@login_required
-def upgrade_me_entertainment(request):
-    user = request.user
-    entertainment_subscribers_group = Group.objects.get(name='entertainment_subscribers')
-    if not request.user.groups.filter(name='entertainment_subscribers').exists():
-        entertainment_subscribers_group.user_set.add(user)
-    return redirect('/')

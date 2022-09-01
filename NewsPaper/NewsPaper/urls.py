@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from news.views import PostsList, PostDetail, NewsCreate, NewsUpdate, NewsDelete, SearchList, ArticleCreate, ArticleUpdate, ArticleDelete
+from news.views import SubscriberView, PostsList, PostDetail, NewsCreate, NewsUpdate, NewsDelete, SearchList, ArticleCreate, ArticleUpdate, ArticleDelete
 
 
 urlpatterns = [
@@ -33,5 +33,5 @@ urlpatterns = [
    path('', include('protect.urls')),
    path('sign/', include('sign.urls')),
    path('accounts/', include('allauth.urls')),
-   path('appointments/', include(('django.contrib.flatpages.urls', 'appointments'), namespace='appointments')),
+   path('subscribe/', SubscriberView.as_view(), name='subscribe'),
 ]

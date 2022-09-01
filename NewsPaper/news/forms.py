@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import *
 
 class PostForm(forms.ModelForm):
    class Meta:
@@ -11,3 +11,9 @@ class PostForm(forms.ModelForm):
            'author',
            'rating',
        ]
+
+
+class SubscribeForm(forms.ModelForm):
+    class Meta:
+        model = SubscribersCategory
+        fields = ['category']

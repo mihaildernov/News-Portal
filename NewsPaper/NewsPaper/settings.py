@@ -157,12 +157,13 @@ ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'ya.dernov13'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = 'stalkeronline1998pharaoh2002'
 EMAIL_USE_SSL = True
 
 ADMINS = [
     ('Mihail', 'mihaildernov@gmail.com'),
 ]
+
 SERVER_EMAIL = 'ya.dernov13@yandex.ru'
 
 DEFAULT_FROM_EMAIL = 'ya.dernov13@yandex.ru'

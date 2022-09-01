@@ -28,7 +28,7 @@ def notify_subscribers(post_id):
     for category in post.category.all():
         for subscriber in category.subscribers.all():
             recipient_list.append(subscriber.email)
-    html_content = render_to_string('newss/mail_subscribers.html', {'post': post})
+    html_content = render_to_string('mail_subscribers.html', {'post': post})
     msg = EmailMultiAlternatives(
         subject=f'{post.title_post}',
         from_email='ya.dernov13@yandex.ru',
