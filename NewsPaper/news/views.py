@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .forms import PostForm
-from .models import Post
+from .forms import *
+from .models import *
 from datetime import datetime
 from .filters import PostFilter
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -117,3 +117,15 @@ class ArticleDelete(DeleteView):
         post = form.save(commit=False)
         post.group = "A"
         return super().form_valid(form)
+
+
+class SubscriberView(CreateView):
+    model = SubscribersCategory
+    form_class = SubscribeForm
+    template_name = 'subscribe.html'
+    success_url = reverse_lazy('newss_list')
+
+    def form_valid(self, form):
+        subscribe = form.save(commit=False)
+        subscribe.subscriber = User.objects.get(pk=self.request.user.id)
+        return super(SubscriberView, self).form_valid(form)
