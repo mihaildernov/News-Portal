@@ -2,9 +2,13 @@
 
 {% load custom_filters %}
 
+{% load cache %}
+
 {% block title %}
 News
 {% endblock title %}
+
+{% cache 30 content %}
 
 {% block content %}
    <h1>Все новости</h1>
@@ -35,3 +39,5 @@ News
    {% endif %}
 
 {% endblock content %}
+
+{% endcache %}

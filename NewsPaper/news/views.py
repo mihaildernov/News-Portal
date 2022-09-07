@@ -5,6 +5,7 @@ from .models import *
 from datetime import datetime
 from .filters import PostFilter
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.cache import cache
 
 
 class PostsList(ListView):
@@ -42,11 +43,19 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'news.html'
     context_object_name = 'post'
+    queryset = Post.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['time_now'] = datetime.utcnow()
         return context
+
+    def get_object(self, *args, **kwargs):
+        obj = cache.get(f'post-{self.kwargs["pk"]}', None)
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'post-{self.kwargs["pk"]}', obj)
+        return obj
 
 
 class NewsCreate(PermissionRequiredMixin, CreateView):
@@ -76,7 +85,7 @@ class NewsUpdate(PermissionRequiredMixin, UpdateView):
 class NewsDelete(DeleteView):
     model = Post
     template_name = 'news_delete.html'
-    success_url = reverse_lazy('newss_list')
+    success_url = reverse_lazy('newss')
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -111,7 +120,7 @@ class ArticleUpdate(PermissionRequiredMixin, UpdateView):
 class ArticleDelete(DeleteView):
     model = Post
     template_name = 'article_delete.html'
-    success_url = reverse_lazy('newss_list')
+    success_url = reverse_lazy('newss')
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -123,7 +132,7 @@ class SubscriberView(CreateView):
     model = SubscribersCategory
     form_class = SubscribeForm
     template_name = 'subscribe.html'
-    success_url = reverse_lazy('newss_list')
+    success_url = reverse_lazy('newss')
 
     def form_valid(self, form):
         subscribe = form.save(commit=False)

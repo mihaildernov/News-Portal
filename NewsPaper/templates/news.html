@@ -2,13 +2,18 @@
 
 {% load custom_filters %}
 
+{% load cache %}
+
 {% block title %}
 Post
 {% endblock title %}
 
+{% cache 30 content %}
 
 {% block content %}
 <h1>{{ post.title }}</h1>
 <h3>{{ post.text }}</h3>
 <h3>{{ post.time_in|date:'d M Y' }}</h3>
 {% endblock content %}
+
+{% endcache %}
