@@ -1,11 +1,34 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import *
 from .models import *
 from datetime import datetime
 from .filters import PostFilter
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.cache import cache
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.utils import timezone
+import pytz
+from django.shortcuts import redirect
+from django.utils.translation import gettext as _
+from django.utils.translation import activate, get_supported_language_variant
+
+
+class Index(View):
+    def get(self, request):
+        curent_time = timezone.now()
+        models = Post.objects.all()
+        context = {
+            'models': models,
+            'current_time': timezone.now(),
+            'timezones': pytz.common_timezones
+        }
+        return HttpResponse(render(request, 'newss.html', context))
+
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')
 
 
 class PostsList(ListView):
