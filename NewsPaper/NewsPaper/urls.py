@@ -23,7 +23,7 @@ urlpatterns = [
    path('admin/', admin.site.urls),
    path('pages/', include('django.contrib.flatpages.urls')),
    path('newss/', PostsList.as_view()),
-   path('newss/search', SearchList.as_view()),
+   path('search/', SearchList.as_view()),
    path('newss/<int:pk>', PostDetail.as_view()),
    path('newss/news/create/', NewsCreate.as_view(), name='news_create'),
    path('newss/<int:pk>/update/', NewsUpdate.as_view(), name='news_update'),
