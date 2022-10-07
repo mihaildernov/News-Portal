@@ -206,6 +206,7 @@ CACHES = {
     }
 }
 
+TRANSLATABLE_MODEL_MODULES = ["news.models"]
 
 LOGGING = {
     'version': 1,
